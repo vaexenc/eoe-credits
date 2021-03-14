@@ -1,31 +1,46 @@
 "use strict";
 
+const isScrolling = false;
 const main = document.querySelector(".main");
 
-const isScrolling = false;
+function norm(min, max, value) {
+	return (value - min) / (max - min);
+}
+
+function getProximityToVerticalCenterNorm(yPosNorm) {
+	if (yPosNorm <= 0.5) {
+		return norm(0, 0.5, yPosNorm);
+	}
+	return 1 - norm(0.5, 1, yPosNorm);
+}
 
 function scrollDown() {
 	main.scrollBy({top: 100, behavior: "auto"});
 }
 
-function setProgress(element, v) {
-	element.style.animationDelay = -((v+1)/2) + "s";
+function convertNormToAnimationProgress(valueNorm) {
+	return -valueNorm + "s";
+}
+
+function setAnimationProgress(element, ...valuesNorm) {
+	element.style.animationDelay = valuesNorm.map((e) => convertNormToAnimationProgress(e)).join(", ");
 }
 
 function updateText() {
 	const elements = Array.from(document.querySelectorAll(".text"));
 	for (const element of elements) {
 		const rect = element.getBoundingClientRect();
-		if (rect.top + rect.height < 0) {
+		if (rect.bottom < 0)
 			continue;
-		}
-		if (rect.top > window.innerHeight) {
+		if (rect.top > window.innerHeight)
 			return;
-		}
 		const centerY = rect.top + rect.height/2;
-		const v = centerY / window.innerHeight;
-		const magic = Math.sin(v*4 + main.scrollTop/700);
-		setProgress(element, magic);
+		const yPosNorm = centerY / window.innerHeight;
+		const magic = rect.bottom / (window.innerHeight + rect.height);
+		const horizontalProgress = (Math.sin(yPosNorm*4 + main.scrollTop/700) + 1) / 2;
+		const bottomToTopProgress = 1 - magic;
+		const focusProgress = getProximityToVerticalCenterNorm(magic);
+		setAnimationProgress(element, horizontalProgress, bottomToTopProgress, focusProgress);
 	}
 }
 
