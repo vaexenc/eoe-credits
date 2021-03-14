@@ -1,0 +1,84 @@
+:root {
+	--color-focus: #FFE526;
+	--color-shadow: #F35A0B;
+	--color-base: #7F1F05;
+	--color-bg: #030101;
+	--blur: 0.4vh;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* scroll-behavior: smooth; */
+}
+
+/* disable scrollbar in chrome */
+::-webkit-scrollbar {
+	width: 0;
+	background: transparent;
+}
+
+body {
+	background-color: var(--color-bg);
+}
+
+/* disable scrollbar in firefox */
+.main {
+	scrollbar-width: none;
+	overflow-y: scroll;
+	height: 100vh;
+}
+
+.text {
+	display: table;
+	position: relative;
+	transform: translate(-50%, -50%);
+	/* transform: translate(-50%, -50%) rotateY(30deg) rotateZ(45deg); */
+	
+	font-size: 6vh;
+	margin-bottom: 0.1vh;
+	font-weight: bold;
+	text-transform: capitalize;
+
+	animation: focus 1s, horizontal-movement 1s;
+	animation-fill-mode: forwards;
+	animation-timing-function: linear;
+	animation-play-state: paused;
+	animation-delay: -0.5s;
+
+	/* ANIMATED */
+	color: var(--color-base);
+	/* filter: blur(var(--blur)); */
+	/* text-shadow: blue -100px 0px 20px, green 100px 0px 20px; */
+
+	/* DEBUG */
+	/* animation-direction: alternate; */
+	/* animation-iteration-count: infinite; */
+	/* animation-timing-function: ease-in-out; */
+	/* left: 50%; */
+}
+
+.heading {
+	font-size: 4vh;
+	font-weight: normal;
+}
+
+@keyframes focus {
+	to {
+		/* color: var(--color-focus);
+		filter: blur(0); */
+		/* text-shadow: var(--color-shadow) 0px 0px 20px; */
+		/* text-shadow: blue -300px 0px 20px, green 300px 0px 20px; */
+	}
+}
+
+@keyframes horizontal-movement {
+	from {
+		left: 40%;
+	}
+	
+	to {
+		left: 60%;
+	}
+}
