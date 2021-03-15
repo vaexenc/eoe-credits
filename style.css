@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&display=swap');
 
 :root {
-	--color-focus: #FFE526;
-	--color-shadow: #F35A0B;
-	--color-base: #7F1F05;
 	--color-bg: #030101;
-	--blur: 0.4vh;
+	--color-base: #7F1F05;
+	--color-focus: #FFE526;
+	--color-shadow-small: #F35A0B;
+	--blur: 0.35vmin;
+	--blur-focus: 0.12vmin;
 }
 
 * {
@@ -13,7 +14,6 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-display: block;
-	/* scroll-behavior: smooth; */
 }
 
 /* disable scrollbar in chrome */
@@ -38,30 +38,36 @@ body {
 	position: relative;
 	transform: translate(-50%, -50%);
 	color: var(--color-base);
-	
+
 	font-family: "Crimson Text", serif;
-	font-size: 6vmin;
+	font-size: 9vmin;
 	font-weight: bold;
-	margin-bottom: 0.1vh;
+	margin-bottom: -1min;
 	text-transform: capitalize;
 
 	animation: horizontal 1s, bottom-to-top 1s, focus 1s;
 	animation-fill-mode: forwards;
 	animation-timing-function: linear;
 	animation-play-state: paused;
-
-	/* DEBUG */
-	/* animation-delay: -0.5s; */
-	/* animation-direction: alternate; */
-	/* animation-iteration-count: infinite; */
-	/* animation-timing-function: ease-in-out; */
-	/* left: 50%; */
 }
 
 .heading {
 	font-family: Helvetica, sans-serif;
-	font-size: 4vh;
+	font-size: 4vmin;
 	font-weight: normal;
+	line-height: 220%;
+}
+
+.overlay {
+	position: fixed;
+	width: 100vw;
+	height: 40vh;
+	margin-top: 50vh;
+	background-image: linear-gradient(transparent, rgba(100%, 100%, 100%, 0.8), transparent);
+	z-index: 100;
+	pointer-events: none;
+	transform: translateY(-50%);
+	mix-blend-mode: overlay;
 }
 
 @keyframes horizontal {
@@ -77,17 +83,17 @@ body {
 @keyframes focus {
 	0% {
 		filter: blur(var(--blur));
+		text-shadow: var(--color-shadow-small) 0vmin 0.35vmin 0.7vmin/*, transparent 0vmin 0vmin 100vmin */;
 	}
 
-	40% {
+	20% {
 		color: var(--color-base);
-		text-shadow: transparent 0px 0.3vh 0.6vh;
 	}
 
-	100% {
+	95%, 100% {
 		color: var(--color-focus);
-		filter: blur(0.02vh);
-		text-shadow: var(--color-shadow) 0px 0.3vh 0.6vh;
+		filter: blur(var(--blur-focus));
+		text-shadow: var(--color-shadow-small) 0vmin 0.35vmin 0.7vmin/*, var(--color-base) 0vmin 0vmin 100vmin */;
 	}
 }
 
@@ -101,6 +107,6 @@ body {
 	}
 
 	100% {
-		transform: translate(-50%, -50%) rotateX(10deg) rotateY(60deg);
+		transform: translate(-50%, -50%) rotateX(15deg) rotateY(60deg);
 	}
 }
