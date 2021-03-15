@@ -70,9 +70,6 @@ function everyFrame() {
 
 function init() {
 	setInterval(update, getIntervalFromFPS(90));
-	// everyFrame();
-	// updateElements();
-	// main.addEventListener("scroll", update);
 }
 
 elements = getAllElements();
