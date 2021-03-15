@@ -40,7 +40,7 @@ body {
 	color: var(--color-base);
 	
 	font-family: "Crimson Text", serif;
-	font-size: 6vh;
+	font-size: 6vmin;
 	font-weight: bold;
 	margin-bottom: 0.1vh;
 	text-transform: capitalize;
