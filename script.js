@@ -2,6 +2,15 @@
 
 const isScrolling = false;
 const main = document.querySelector(".main");
+let elements;
+
+function getAllElements() {
+	return Array.from(document.querySelectorAll(".text"));
+}
+
+function getIntervalFromFPS(framesPerSecond) {
+	return 1/framesPerSecond*1000;
+}
 
 function norm(min, max, value) {
 	return (value - min) / (max - min);
@@ -26,21 +35,24 @@ function setAnimationProgress(element, ...valuesNorm) {
 	element.style.animationDelay = valuesNorm.map((e) => convertNormToAnimationProgress(e)).join(", ");
 }
 
-function updateText() {
-	const elements = Array.from(document.querySelectorAll(".text"));
+function calculateAnimationProgress(rect) {
+	const centerY = rect.top + rect.height/2;
+	const yPosNorm = centerY / window.innerHeight;
+	const magic = rect.bottom / (window.innerHeight + rect.height);
+	const horizontalProgress = (Math.sin(yPosNorm*4 + main.scrollTop/700) + 1) / 2;
+	const bottomToTopProgress = 1 - magic;
+	const focusProgress = getProximityToVerticalCenterNorm(magic);
+	return [horizontalProgress, bottomToTopProgress, focusProgress];
+}
+
+function updateElements() {
 	for (const element of elements) {
 		const rect = element.getBoundingClientRect();
 		if (rect.bottom < 0)
 			continue;
 		if (rect.top > window.innerHeight)
 			return;
-		const centerY = rect.top + rect.height/2;
-		const yPosNorm = centerY / window.innerHeight;
-		const magic = rect.bottom / (window.innerHeight + rect.height);
-		const horizontalProgress = (Math.sin(yPosNorm*4 + main.scrollTop/700) + 1) / 2;
-		const bottomToTopProgress = 1 - magic;
-		const focusProgress = getProximityToVerticalCenterNorm(magic);
-		setAnimationProgress(element, horizontalProgress, bottomToTopProgress, focusProgress);
+		setAnimationProgress(element, ...calculateAnimationProgress(rect));
 	}
 }
 
@@ -48,7 +60,7 @@ function update() {
 	if (isScrolling) {
 		scrollDown();
 	}
-	updateText();
+	updateElements();
 }
 
 function everyFrame() {
@@ -56,6 +68,12 @@ function everyFrame() {
 	window.requestAnimationFrame(everyFrame);
 }
 
-everyFrame();
-// setInterval(every, 500)
-// updateText();
+function init() {
+	setInterval(update, getIntervalFromFPS(90));
+	// everyFrame();
+	// updateElements();
+	// main.addEventListener("scroll", update);
+}
+
+elements = getAllElements();
+init();
