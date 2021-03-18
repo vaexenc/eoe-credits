@@ -45,6 +45,7 @@ html, body {
 	font-weight: bold;
 	margin-bottom: -1min;
 	text-transform: capitalize;
+	user-select: none;
 
 	animation: horizontal 1s, bottom-to-top 1s, focus 1s;
 	animation-fill-mode: forwards;
