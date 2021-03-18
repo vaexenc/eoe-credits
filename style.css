@@ -58,6 +58,7 @@ html, body {
 	font-size: 4vmin;
 	font-weight: normal;
 	line-height: 220%;
+	margin-top: 1vh;
 }
 
 .overlay {
