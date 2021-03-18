@@ -74,3 +74,4 @@ function init() {
 
 elements = getAllElements();
 init();
+main.focus();
