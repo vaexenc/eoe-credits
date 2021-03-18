@@ -73,6 +73,10 @@ html, body {
 	z-index: 100;
 }
 
+.gap {
+	height: 106vh;
+}
+
 @keyframes horizontal {
 	from {
 		left: 40%;
