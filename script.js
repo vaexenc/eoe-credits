@@ -40,7 +40,7 @@ function calculateAnimationProgress(rect) {
 	const centerY = rect.top + rect.height/2;
 	const yPosNorm = centerY / windowHeight;
 	const magic = rect.bottom / (windowHeight + rect.height);
-	const horizontalProgress = (Math.sin(yPosNorm*4 + main.scrollTop/700) + 1) / 2;
+	const horizontalProgress = (Math.sin(yPosNorm*4 + main.scrollTop*0.003/(windowHeight/1000)) + 1) / 2;
 	const bottomToTopProgress = 1 - magic;
 	const focusProgress = getProximityToVerticalCenterNorm(magic);
 	return [horizontalProgress, bottomToTopProgress, focusProgress];
