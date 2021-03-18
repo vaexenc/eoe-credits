@@ -1,6 +1,6 @@
 "use strict";
 
-const isScrolling = false;
+let isScrolling = true;
 const main = document.querySelector(".main");
 let elements;
 
@@ -24,7 +24,8 @@ function getProximityToVerticalCenterNorm(yPosNorm) {
 }
 
 function scrollDown() {
-	main.scrollBy({top: 100, behavior: "auto"});
+	const scrollAmount = Math.max(window.innerHeight*0.003, 1);
+	main.scrollBy({top: scrollAmount, behavior: "auto"});
 }
 
 function convertNormToAnimationProgress(valueNorm) {
