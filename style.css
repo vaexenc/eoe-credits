@@ -25,12 +25,13 @@
 /* include html to fix mix-blend-mode in chrome */
 html, body {
 	background-color: var(--color-bg);
+	pointer-events: none;
 }
 
 /* disable scrollbar in firefox */
 .main {
 	scrollbar-width: none;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	height: 100vh;
 }
 
